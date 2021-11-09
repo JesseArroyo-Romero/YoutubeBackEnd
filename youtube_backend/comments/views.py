@@ -7,9 +7,16 @@ from rest_framework import status
 # Create your views here.
 
 
-class CommentsList(APIview):
+class CommentsList(APIView):
 
     def get(self, request):
         comments = Comments.objects.all()
         serializer = CommentsSerializer(comments, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CommentsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
