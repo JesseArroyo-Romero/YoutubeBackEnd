@@ -6,5 +6,5 @@ from django.db import models
 class Comments(models.Model):
     video_id = models.CharField(max_length=50)
     comment = models.CharField(max_length=200)
-    like = models.IntegerField(blank=True, null=True)
-    dislike = models.IntegerField(blank=True, null=True)
+    like = models.IntegerField(default=0)
+    dislike = models.IntegerField(default=0)
